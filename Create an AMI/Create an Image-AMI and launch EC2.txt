@@ -1,0 +1,15 @@
+Step 1: Launch an Instance and save the instance ID into an environment variable
+Comment: aws ec2 run-instances --image-id ami-010aff33ed5991201 --instance-type t2.micro --key-name AWS-EC2 --user-data file://userdata.txt
+Comment: instance_id=$(aws ec2 run-instances --image-id ami-010aff33ed5991201 --instance-type t2.micro --key-name AWS-EC2 --user-data file://userdata.txt)
+  echo $instance_id
+Step 2: Check the user data worked and the web server is running by typing the web server IP on a browser and verifying you see "Hello World"
+
+Step 3: Create an image from that instance ID and save the image id to variable image_id
+Comment: image_id=$(aws ec2 create-image --instance-id $instance_id --name "Myserver" --description "An Ami for my webserver" --query ImageId --output text)
+  - echo $image_id
+ Step 4: Use the image to launch a instance
+ Comment: aws ec2 run-instances --image-id $image_id --instance-type t2.micro 
+ 
+ Step 5: Veryfy the webserver is running by typing the IP address on a browser.
+
+
